@@ -57,6 +57,17 @@ export function ExpressAuthProvider({ children }: { children: React.ReactNode })
   });
 
   useEffect(() => {
+    // Skip auth check during SSR/build
+    if (typeof window === 'undefined') {
+      setAuthState({
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
+        error: null,
+      });
+      return;
+    }
+
     // Check for current user on mount
     const checkCurrentUser = async () => {
       try {
