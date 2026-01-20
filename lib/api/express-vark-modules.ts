@@ -159,11 +159,87 @@ export class ExpressVARKModulesAPI {
    */
   async createModule(data: CreateVARKModuleData) {
     try {
-      const response = await expressClient.post('/api/modules', data);
+      console.log('📝 Creating new VARK module...');
+      
+      // Check if module has large content that should be stored in file storage
+      const hasLargeContent = data.content_structure?.sections && 
+                              data.content_structure.sections.length > 0;
+      
+      let createData = { ...data };
+      
+      if (hasLargeContent && typeof window !== 'undefined') {
+        console.log('📤 Module has content sections, will upload to Supabase storage after creation...');
+        
+        // Generate temporary ID for storage (browser-safe)
+        const tempId = self.crypto.randomUUID();
+        
+        // Upload full module JSON to Supabase Storage
+        const fullModuleData = {
+          id: tempId,
+          ...data
+        };
+        
+        try {
+          // Create JSON blob
+          const jsonString = JSON.stringify(fullModuleData, null, 2);
+          const blob = new Blob([jsonString], { type: 'application/json' });
+          
+          const sizeInMB = blob.size / (1024 * 1024);
+          console.log(`📊 Module JSON size: ${sizeInMB.toFixed(2)} MB`);
+          
+          // Use consistent filename for easy retrieval
+          const filename = `module-${tempId}.json`;
+          const filepath = `vark-modules/${filename}`;
+          
+          // Upload to Supabase Storage
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('module-content')
+            .upload(filepath, blob, {
+              contentType: 'application/json',
+              upsert: false // New file, don't overwrite
+            });
+          
+          if (uploadError) {
+            console.error('❌ Failed to upload module JSON:', uploadError);
+            throw new Error(`Storage upload failed: ${uploadError.message}`);
+          }
+          
+          // Get public URL
+          const { data: urlData } = supabase.storage
+            .from('module-content')
+            .getPublicUrl(filepath);
+          
+          console.log('✅ Module JSON uploaded to Supabase:', urlData.publicUrl);
+          
+          // Update the json_content_url in the create data
+          createData.json_content_url = urlData.publicUrl;
+          createData.jsonContentUrl = urlData.publicUrl;
+          
+          // Update content summary
+          createData.content_summary = {
+            sections_count: data.content_structure?.sections?.length || 0,
+            assessment_count: data.assessment_questions?.length || 0,
+            has_multimedia: Object.values(data.multimedia_content || {}).some(
+              v => v && (Array.isArray(v) ? v.length > 0 : true)
+            )
+          };
+          createData.contentSummary = createData.content_summary;
+          
+          console.log('📊 Content summary created:', createData.content_summary);
+        } catch (uploadError) {
+          console.warn('⚠️ Failed to upload module JSON to storage:', uploadError);
+          console.log('📋 Continuing with database-only creation...');
+          // Continue with creation even if file upload fails
+        }
+      }
+
+      const response = await expressClient.post('/api/modules', createData);
 
       if (response.error) {
         throw new Error(response.error.message);
       }
+
+      console.log('✅ Module created successfully with json_content_url:', response.data.jsonContentUrl || response.data.json_content_url);
 
       return convertModuleToSnakeCase(response.data);
     } catch (error) {
