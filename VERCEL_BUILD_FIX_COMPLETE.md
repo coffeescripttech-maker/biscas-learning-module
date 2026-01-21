@@ -49,16 +49,18 @@ export const dynamic = 'force-dynamic';
 ```
 
 ### 4. Demo and Test Pages
-**Files:**
+**Action:** Deleted all test and demo pages that were causing build errors
+
+**Files Removed:**
+- `app/test-editor/page.tsx`
+- `app/test-auth/page.tsx`
+- `app/test-address-selector/page.tsx`
+- `app/test-id-validation/page.tsx`
 - `app/demo/page.tsx`
 - `app/demo/cell-division-module/page.tsx`
 - `app/demo/vark-module-builder/page.tsx`
-- `app/test-address-selector/page.tsx`
-- `app/test-auth/page.tsx`
-- `app/test-editor/page.tsx`
-- `app/test-id-validation/page.tsx`
 
-Added `export const dynamic = 'force-dynamic';` to all demo and test pages to prevent static generation issues.
+These pages were development/testing utilities not needed in production and were causing build errors due to incompatible dependencies.
 
 ### 5. Module Creation JSON Upload
 **File:** `lib/api/express-vark-modules.ts`
@@ -106,6 +108,10 @@ experimental: {
 
 ## Summary of Changes
 
+### Files Deleted:
+- All test pages (`app/test-*`)
+- All demo pages (`app/demo/*`)
+
 ### Files Created:
 - `app/not-found.tsx` - Custom 404 page
 - `app/loading.tsx` - Loading state component
@@ -116,7 +122,6 @@ experimental: {
 - `hooks/useExpressAuth.tsx` - SSR guard
 - `lib/api/express-vark-modules.ts` - JSON upload in createModule
 - `next.config.mjs` - Build configuration
-- All demo/test pages - Dynamic export
 
 ## Testing Checklist
 
