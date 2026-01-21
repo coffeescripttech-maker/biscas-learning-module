@@ -1,10 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-
-html,
-body {
-  font-family: 'Poppins', sans-serif;
-} */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,17 +10,14 @@ body {
 
 @layer base {
   :root {
-    /* New Color Palette */
-    --primary-teal: 0 175 143; /* #00af8f */
-    --primary-yellow: 255 212 22; /* #ffd416 */
-    --teal-variant-1: 0 175 144; /* #00af90 */
-    --teal-variant-2: 0 175 141; /* #00af8d */
-    --sunshine-yellow: 255 211 23; /* #ffd317 */
-    --golden-yellow: 254 211 25; /* #fed319 */
-    --white: 255 255 255; /* #ffffff */
-    --off-white: 254 255 255; /* #feffff */
-
-    /* Legacy variables for compatibility */
+    --primary-teal: 0 175 143;
+    --primary-yellow: 255 212 22;
+    --teal-variant-1: 0 175 144;
+    --teal-variant-2: 0 175 141;
+    --sunshine-yellow: 255 211 23;
+    --golden-yellow: 254 211 25;
+    --white: 255 255 255;
+    --off-white: 254 255 255;
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -62,6 +52,7 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+  
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -107,18 +98,15 @@ body {
   }
 }
 
-/* Safe area support for mobile devices */
 @supports (padding: max(0px)) {
   .h-safe-area-inset-bottom {
     height: max(0px, env(safe-area-inset-bottom));
   }
-
   .pb-safe-area-inset-bottom {
     padding-bottom: max(0px, env(safe-area-inset-bottom));
   }
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -137,68 +125,52 @@ body {
   background: #a8a8a8;
 }
 
-/* Senior-friendly utility classes with new color palette */
 @layer components {
   .senior-friendly {
     @apply text-lg leading-relaxed;
   }
-
   .senior-button {
     @apply text-lg px-6 py-4 rounded-xl font-semibold;
   }
-
   .senior-card {
     @apply rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300;
   }
-
   .senior-input {
     @apply text-lg px-4 py-3 rounded-xl border-2 focus:ring-2 focus:ring-[#00af8f]/20;
   }
-
   .senior-text {
     @apply text-[#333333] leading-relaxed;
   }
-
   .senior-text-secondary {
     @apply text-[#666666] leading-relaxed;
   }
-
   .senior-bg-primary {
     @apply bg-[#00af8f];
   }
-
   .senior-bg-secondary {
     @apply bg-[#ffd416];
   }
-
   .senior-bg-neutral {
     @apply bg-[#feffff];
   }
-
   .senior-text-primary {
     @apply text-[#00af8f];
   }
-
   .senior-text-secondary {
     @apply text-[#ffd416];
   }
-
   .senior-border-primary {
     @apply border-[#00af8f];
   }
-
   .senior-border-secondary {
     @apply border-[#ffd416];
   }
-
   .senior-gradient-primary {
     @apply bg-gradient-to-r from-[#00af8f] to-[#00af90];
   }
-
   .senior-gradient-secondary {
     @apply bg-gradient-to-r from-[#ffd416] to-[#ffd317];
   }
-
   .senior-gradient-mixed {
     @apply bg-gradient-to-r from-[#00af8f] to-[#ffd416];
   }
