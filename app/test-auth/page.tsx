@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState } from 'react';
 import { AuthAPI } from '@/lib/api/unified-api';
 import { Button } from '@/components/ui/button';
