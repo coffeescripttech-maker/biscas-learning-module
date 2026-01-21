@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import './globals.css';
-import { AuthProvider } from '@/hooks/useUnifiedAuth';
+import { ClientAuthProvider } from '@/components/providers/client-auth-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { PWAStatus } from '@/components/ui/pwa-status';
 
@@ -74,11 +74,11 @@ html {
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
       <body>
-        <AuthProvider>
+        <ClientAuthProvider>
           {children}
           <Toaster />
           <PWAStatus />
-        </AuthProvider>
+        </ClientAuthProvider>
       </body>
     </html>
   );

@@ -2,14 +2,20 @@
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
-      ignoreBuildErrors: true,
+    ignoreBuildErrors: true,
   },
   typescript: {
     ignoreBuildErrors: true
   },
   images: {
     unoptimized: true
-  }
+  },
+  // Skip static generation for error pages
+  experimental: {
+    skipTrailingSlashRedirect: true,
+  },
+  // Disable static optimization for pages with auth
+  staticPageGenerationTimeout: 120,
   // Disable static export for dynamic app functionality
   // output: 'export',
   // trailingSlash: true,
