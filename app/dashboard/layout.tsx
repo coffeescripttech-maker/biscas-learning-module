@@ -1,6 +1,6 @@
 'use client';
 
-import '../styles.css';
+import '../global-styles.css';
 import { useAuth } from '@/hooks/useAuth';
 import { OSCASidebar } from '@/components/osca-sidebar';
 import { BASCASidebar } from '@/components/basca-sidebar';
