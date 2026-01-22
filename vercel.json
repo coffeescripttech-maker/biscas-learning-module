@@ -1,4 +1,5 @@
 {
-  "buildCommand": "node -e \"const fs = require('fs'); const path = '.next'; if (fs.existsSync(path)) fs.rmSync(path, {recursive: true, force: true});\" && pnpm run build",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm run build"
 }

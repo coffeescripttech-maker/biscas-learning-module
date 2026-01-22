@@ -10,19 +10,7 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  // Skip static generation for error pages
-  experimental: {
-    skipTrailingSlashRedirect: true,
-  },
-  // Disable static optimization for pages with auth
   staticPageGenerationTimeout: 120,
-  // Disable static export for dynamic app functionality
-  // output: 'export',
-  // trailingSlash: true,
-  // Configure asset prefix for proper loading in Capacitor
-  // assetPrefix: '',
-  // Disable server-side features for static export
-  // distDir: 'out'
 };
 
 export default nextConfig;

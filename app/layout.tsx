@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
-import './globals.css';
+import './styles.css';
 import { ClientAuthProvider } from '@/components/providers/client-auth-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { PWAStatus } from '@/components/ui/pwa-status';
